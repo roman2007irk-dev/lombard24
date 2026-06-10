@@ -11,12 +11,12 @@ app = Flask(__name__)
 app.secret_key = 'lombard24_secret_key_2026'
 app.config['JSON_AS_ASCII'] = False
 
-# Получаем параметры подключения из переменных окружения Railway
-MYSQL_HOST = os.environ.get('MYSQLHOST', 'db')
-MYSQL_USER = os.environ.get('MYSQLUSER', 'root')
-MYSQL_PASSWORD = os.environ.get('MYSQLPASSWORD', 'root123')
-MYSQL_DATABASE = os.environ.get('MYSQLDATABASE', 'lombard24')
-MYSQL_PORT = int(os.environ.get('MYSQLPORT', 3306))
+# === ПРЯМЫЕ ДАННЫЕ ДЛЯ ПОДКЛЮЧЕНИЯ ===
+MYSQL_HOST = 'mysql.railway.internal'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'nznMsbPIayOTzVTXGHHgIIQptbHqOreF'
+MYSQL_DATABASE = 'railway'
+MYSQL_PORT = 3306
 
 def get_db():
     return pymysql.connect(
@@ -49,7 +49,7 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated
 
-# Инициализация БД при первом запуске
+# Инициализация БД
 def init_db():
     try:
         conn = get_db()
@@ -218,7 +218,7 @@ th{background:#faf6f0;color:#333}
 <body><div class="navbar"><div class="logo">🏦 Lombard24</div><div class="nav-links"><a href="/dashboard">Дашборд</a><a href="/clients">Клиенты</a><a href="/contracts">Договоры</a><a href="/payments">Платежи</a><a href="/reports">Отчёты</a><span>👤 {{ session.username }} ({{ session.role }})</span><a href="/logout">Выйти</a></div></div>
 <div class="container"><h1>💳 История платежей</h1>
 <table><thead><tr><th>Дата</th><th>Клиент</th><th>Залог</th><th>Сумма</th><th>Тип</th></tr></thead>
-<tbody>{% for p in payments %}<tr><td>{{ p.payment_date }}</td><td>{{ p.client_name }}</td><td>{{ p.item_name }}</td><td>{{ p.amount }} ₽</td><td>{{ p.payment_type }}</td></tr>{% endfor %}</tbody></table></div></body></html>
+<tbody>{% for p in payments %}<tr><td>{{ p.payment_date }}</td><td>{{ p.client_name }}</td><td>{{ p.item_name }}</td><td>{{ p.amount }} ₽</td><td>{{ p.payment_type }}<tr>{% endfor %}</tbody></table></div></body></html>
 '''
 
 REPORTS_HTML = '''
