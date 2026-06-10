@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.secret_key = 'lombard24_secret_key_2026'
 app.config['JSON_AS_ASCII'] = False
 
-# === ДАННЫЕ ИЗ MySQL-wPad (публичный доступ) ===
-MYSQL_HOST = 'acela.proxy.rlw.y.net'
+# === ПРЯМЫЕ ДАННЫЕ ИЗ MySQL-wPad (публичный доступ) ===
+MYSQL_HOST = 'acela.proxy.rlwy.net'
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = 'nznMsbPIayOTzVTXGHHgIIQptbHqOreF'
 MYSQL_DATABASE = 'railway'
@@ -44,7 +44,7 @@ def admin_required(f):
         if 'user_id' not in session:
             return redirect(url_for('login'))
         if session.get('role') != 'admin':
-            flash('Доступ запрещён. Требуются права администратора.')
+            flash('Доступ запрещён.')
             return redirect(url_for('dashboard'))
         return f(*args, **kwargs)
     return decorated
@@ -62,7 +62,7 @@ def init_db():
         conn.close()
         print("✅ База данных инициализирована")
     except Exception as e:
-        print(f"❌ Ошибка инициализации: {e}")
+        print(f"❌ Ошибка: {e}")
 
 init_db()
 
