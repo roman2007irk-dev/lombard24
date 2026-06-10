@@ -1,0 +1,22 @@
+{
+  "admin": {
+    "id": "admin",
+    "username": "admin",
+    "password": "0192023a7bbd73250516f069df18b500",
+    "is_admin": true,
+    "name": "Administrator",
+    "phone": "+79991234567",
+    "bonus": 0,
+    "created_at": "2026-05-31T09:13:45.616326"
+  },
+  "sdas": {
+    "id": "bd523196c81ea7b7",
+    "username": "sdas",
+    "password": "202cb962ac59075b964b07152d234b70",
+    "name": "Лев",
+    "phone": "98390274",
+    "is_admin": false,
+    "bonus": 0,
+    "created_at": "2026-05-31T09:13:45.616654"
+  }
+}

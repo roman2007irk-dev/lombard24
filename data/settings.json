@@ -1,0 +1,12 @@
+{
+  "course": 11.5,
+  "commission_high": 1000,
+  "commission_low": 575,
+  "about_text": "Anomaly Logistics — ваш надёжный партнёр по выкупу товаров из Китая. Я работаю с 2024 года.Наши преимущества: быстрая доставка, фотоотчёт, честные цены.",
+  "delivery_prices": {
+    "light": 500,
+    "heavy": 600,
+    "shoes": 850,
+    "bags": 500
+  }
+}

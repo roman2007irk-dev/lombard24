@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<div class="hero">
+    <h1>Выкуп из Китая</h1>
+    <p>Taobao | 1688 | POIZON</p>
+    <div class="hero-buttons">
+        <a href="/catalog" class="btn">📦 Товары в наличии</a>
+        <a href="/buyout-request" class="btn btn-outline">📝 Заказать выкуп</a>
+    </div>
+</div>
+
+<div class="steps">
+    <h2>Как мы работаем</h2>
+    <div class="steps-grid">
+        <div class="step">1️⃣ Скинули ссылку</div>
+        <div class="step">2️⃣ Мы выкупили</div>
+        <div class="step">3️⃣ Фотоотчёт</div>
+        <div class="step">4️⃣ Вы получили</div>
+    </div>
+</div>
+
+<div class="features">
+    <div class="feature">
+        <h3>Товары в наличии</h3>
+        <p>Быстрая доставка со склада в РФ</p>
+        <a href="/catalog" class="btn-sm">Смотреть →</a>
+    </div>
+    <div class="feature">
+        <h3>Выкуп под заказ</h3>
+        <p>Любые товары с Taobao/1688</p>
+        <a href="/buyout-request" class="btn-sm">Оставить заявку →</a>
+    </div>
+    <div class="feature">
+        <h3>Калькулятор</h3>
+        <p>Примерная стоимость выкупа</p>
+        <a href="/calculator" class="btn-sm">Рассчитать →</a>
+    </div>
+</div>
+
+{% if new_products %}
+<div class="new-products">
+    <h2>🔥 Новые поступления</h2>
+    <div class="product-grid">
+        {% for p in new_products %}
+        <div class="product-card">
+            <div class="product-img" style="background:#2c2c54; height:200px; display:flex; align-items:center; justify-content:center;">📷</div>
+            <h3>{{ p.name }}</h3>
+            <p class="price">{{ "{:,}".format(p.price) }} ₽</p>
+            <a href="/quick-order/{{ p.id }}" class="btn-sm">Быстрый заказ</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
