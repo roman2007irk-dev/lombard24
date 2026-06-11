@@ -4,7 +4,7 @@ import re
 import hashlib
 import threading
 import time
-from datetime import date, datetime
+from datetime import date
 from functools import wraps
 from flask import Flask, request, render_template_string, redirect, url_for, session, flash
 import pymysql
@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.secret_key = 'lombard24_secret_key_2026'
 app.config['JSON_AS_ASCII'] = False
 
-# ==================== ПОДКЛЮЧЕНИЕ К БД ====================
+# ==================== ПОДКЛЮЧЕНИЕ К БД (ЧЕРЕЗ ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ) ====================
 def get_db():
     if os.environ.get('MYSQLHOST'):
         return pymysql.connect(
@@ -71,7 +71,9 @@ def check_overdue():
 
 threading.Thread(target=check_overdue, daemon=True).start()
 
-# ==================== HTML ШАБЛОНЫ ====================
+# ==================== ВСТАВЬ СВОИ HTML ШАБЛОНЫ ====================
+# LOGIN_HTML, REGISTER_HTML, DASHBOARD_HTML, CLIENTS_HTML, CLIENT_FORM,
+# CONTRACTS_HTML, CONTRACT_FORM, PAYMENTS_HTML, PAY_FORM, REPORTS_HTML, USERS_HTML
 
 LOGIN_HTML = '''
 <!DOCTYPE html>
@@ -326,7 +328,8 @@ button:hover{background:#1b4d3e}
 <input type="date" name="due_date" value="{{ contract.due_date if contract else '' }}" required>
 <button type="submit">{% if contract %}<i class="fas fa-save"></i> Сохранить{% else %}<i class="fas fa-check"></i> Оформить{% endif %}</button>
 </form>
-<a href="/contracts" style="color:#2d6a4f;display:block;margin-top:20px;text-align:center">← Назад</a></div></body></html>
+<a href="/contracts" style="color:#2d6a4f;display:block;margin-top:20px;text-align:center">← Назад</a>
+</div></body></html>
 '''
 
 PAYMENTS_HTML = '''
@@ -359,7 +362,8 @@ th{background:#f8f9fa;color:#2d6a4f}
 {% for p in payments %}
 <tr>
 <td>{{ p.payment_date }}</td>
-<td>{{ p.client_name }}</td><td>{{ p.item_name }}</td>
+<td>{{ p.client_name }}</td>
+<td>{{ p.item_name }}</td>
 <td>{{ p.amount }} ₽</td>
 <td>{{ p.payment_type }}</td>
 {% if role == 'admin' %}
