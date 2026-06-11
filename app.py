@@ -14,24 +14,14 @@ app = Flask(__name__)
 app.secret_key = 'lombard24_secret_key_2026'
 app.config['JSON_AS_ASCII'] = False
 
-# ==================== ПОДКЛЮЧЕНИЕ К БД (ЧЕРЕЗ ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ) ====================
+# ==================== ПОДКЛЮЧЕНИЕ К БД (НОВАЯ) ====================
 def get_db():
-    if os.environ.get('MYSQLHOST'):
-        return pymysql.connect(
-            host=os.environ.get('MYSQLHOST'),
-            user=os.environ.get('MYSQLUSER', 'root'),
-            password=os.environ.get('MYSQLPASSWORD', ''),
-            database=os.environ.get('MYSQLDATABASE', 'railway'),
-            port=int(os.environ.get('MYSQLPORT', 3306)),
-            cursorclass=DictCursor,
-            autocommit=True,
-            charset='utf8mb4'
-        )
     return pymysql.connect(
-        host='db',
+        host='switchback.proxy.rlwy.net',
         user='root',
-        password='root123',
-        database='lombard24',
+        password='jaOBvZkcscuGRRBknHVTfGAuOOxKeoKc',
+        database='railway',
+        port=28559,
         cursorclass=DictCursor,
         autocommit=True,
         charset='utf8mb4'
@@ -71,9 +61,7 @@ def check_overdue():
 
 threading.Thread(target=check_overdue, daemon=True).start()
 
-# ==================== ВСТАВЬ СВОИ HTML ШАБЛОНЫ ====================
-# LOGIN_HTML, REGISTER_HTML, DASHBOARD_HTML, CLIENTS_HTML, CLIENT_FORM,
-# CONTRACTS_HTML, CONTRACT_FORM, PAYMENTS_HTML, PAY_FORM, REPORTS_HTML, USERS_HTML
+# ==================== HTML ШАБЛОНЫ ====================
 
 LOGIN_HTML = '''
 <!DOCTYPE html>
@@ -298,7 +286,7 @@ th{background:#f8f9fa;color:#2d6a4f}
 </tr>
 {% endfor %}
 </tbody>
-</table>
+</tr>
 <a href="/" style="color:#2d6a4f;display:block;margin-top:20px">← На главную</a>
 </div></body></html>
 '''
@@ -372,8 +360,7 @@ th{background:#f8f9fa;color:#2d6a4f}
 </tr>
 {% endfor %}
 </tbody>
-</table>
-<a href="/" style="color:#2d6a4f;display:block;margin-top:20px">← На главную</a>
+</table><a href="/" style="color:#2d6a4f;display:block;margin-top:20px">← На главную</a>
 </div></body></html>
 '''
 
